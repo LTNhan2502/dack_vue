@@ -1,8 +1,8 @@
 <template>
     <div class="header">
-        <nav class="navbar navbar-expand-lg navbar-light d-flex justufy-content-between">
+        <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-center">
             <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-            <div class="container item-header">
+            <div class="container d-flex align-items-center justify-content-between">
                 <button
                 class="navbar-toggler"
                 type="button"
@@ -15,7 +15,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item active">
                             <router-link class="nav-link text-white" to="/"
                                 >Home
@@ -42,10 +42,10 @@
                             </button> -->
                         </form>
                     </ul>
-                    <ul class="navbar-nav mr-auto" v-if="isLogin!=true">
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="margin-right: auto;" v-if="isLogin!=true">
                         <router-link to="/dangnhap"> <li class="nav-item text-white">Đăng Nhập</li></router-link>
                     </ul>
-                    <ul class="navbar-nav mr-auto" v-if="isLogin!=false">
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="margin-right: auto;" v-if="isLogin!=false">
                         <li class="text-white nav-item btn btn-danger" @click="dangXuat">Đăng Xuất</li> 
                         <li class="text-white nav-item">Xin Chào {{ name }}</li>
                     </ul>
@@ -112,4 +112,5 @@ export default {
     color: white;
     margin-bottom: 10px;
 }
+
 </style>
