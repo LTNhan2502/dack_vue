@@ -1,15 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+// import HomeView from '../views/HomeView.vue'
 import AddCategory from '../views/Category/AddCategory.vue'
 import Category from '../views/Category/Category.vue'
-
+import HomePage from '../components/HomePage.vue'
+import ShoppingCart from '../components/ShoppingCart.vue'
+import DetailProduct from '../components/DetailProduct.vue'
+import DangNhap from '../components/DangNhap.vue'
+import DangKi from '../components/DangKi.vue'
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
+  // {
+    // path: '/',
+    // name: 'home',
+    // component: HomeView
+  // },
   {
     path: '/about',
     name: 'about',
@@ -27,6 +31,36 @@ const routes = [
     path: '/admin/category',
     name: 'Category',
     component: Category
+  },
+  {
+    path: '/',
+    name: 'HomePage',
+    component: HomePage,
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import('../components/About'),
+  },
+  {
+    path: '/shopping-cart',
+    name: 'ShoppingCart',
+    component: ShoppingCart,
+  },
+  {
+    path: '/dangnhap',
+    name: 'DangNhap',
+    component: DangNhap
+  },
+  {
+    path: '/dangki',
+    name: 'DangKi',
+    component: DangKi
+  },
+  {
+    path: '/detail-product/:id',
+    name: 'DetailProduct',
+    component: DetailProduct,
   },
 ]
 

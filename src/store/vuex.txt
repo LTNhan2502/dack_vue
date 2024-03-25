@@ -1,0 +1,20 @@
+- State
+   + Nơi để lưu trữ các dữ liệu và trạng thái ứng dụng
+- Getter:
+    + Là những hàm để lấy dữ liệu từ State
+    + mapGetters(['status]) lấy những thuộc tính của state để đưa ra 
+    gia diện người dùng,
+    +chuyển những giá trị của state về component muốn dùng thành this
+- Mutations :
+    + Là những hàm để thay đổi dữ liệu của state
+    + mapMutations
+        chuyển những hàm của mutation về component muốn dùng tới nó
+    + Có 2 cách để thay đổi dữ liệu qua state:
+        + ko thông qua action(Ko nên dùng)
+            Nó sẽ gọi mutations ra component và thực hiện thay đổi dữ liệu ở component
+        + Thông qua action
+            action sẽ lấy phương thức của mutations và thay đổi ở actions.js
+- Actions(logic xử lí sẽ đc xử lí ở action chứ ko xử lí ở component)
+    + thay dổi dữ liệu của state
+    + mapActions(['updateStatus']) 
+        -updateStatus sẽ trực tiếp thao tác với coponents
