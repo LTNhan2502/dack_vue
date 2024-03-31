@@ -1,4 +1,5 @@
 const getters={
+    getProducts: state => state.products,
     getCarts:state=>state.cart,
     getInStock:state=>id=>state.products.find(e=>e.id==id),
     getCountCarts:function(state,getters){

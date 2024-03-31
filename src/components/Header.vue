@@ -26,6 +26,11 @@
                                 >About
                             </router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link text-white" to="/admin"
+                                >Admin
+                            </router-link>
+                        </li>
                         <form class="form-inline my-2 my-lg-0">
                             <input
                                 class="form-control mr-sm-2"
