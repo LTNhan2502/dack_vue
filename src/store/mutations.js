@@ -115,9 +115,14 @@ const mutations = {
       console.log(product.id);
     });
   },
-  SET_IMAGE(state, image) {
-    state.products.image = image;
+  // mutations.js
+  SET_IMAGE(state, product) {
+    const index = state.products.findIndex((p) => p.id === product.id);
+    if (index !== -1) {
+      state.products[index].image = product.image;
+    }
   },
+
   
   
     
