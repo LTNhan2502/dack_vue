@@ -1,4 +1,5 @@
 import router from "@/router";
+import swal from "sweetalert";
 const mutations = {
   add(state, product) {
     let item = {
@@ -61,17 +62,20 @@ const mutations = {
     });
   },
   dangKi(state, info) {
-    if (info.email != "" && info.password != "" && info.hoten != "") {
-      if (JSON.parse(localStorage.getItem('Users')) != null) {
-        state.users.length == 0 ? state.users.push(...JSON.parse(localStorage.getItem('Users'))) : ''
-      }
-      state.users.push(info)
-      localStorage.setItem('Users', JSON.stringify(state.users))
-      alert("Đăng kí thành công")
-      router.push('/login')
+    if (info.email !== "" && info.password !== "" && info.hoten !== "") {
+      const users = JSON.parse(localStorage.getItem('Users')) || [];
+      state.users = users;
+      state.users.push(info);
+      localStorage.setItem('Users', JSON.stringify(state.users));
+      swal("Thành công!", "Đăng kí thành công!", "success").then(() => {
+        router.push('/dangnhap');
+      });
     } else {
-      alert("Đăng Kí Thất Bại")
+      swal("Thất bại!", "Đăng kí thất bại!", "error");
     }
+
+
+
   },
   verifyLogin(state) {
     if (state.isLogin != false) {
@@ -91,21 +95,23 @@ const mutations = {
     if (kq) {
       state.isLogin = true
       state.name = kq.hoten;
-      alert("Đăng Nhập Thành Công");
-      router.push("/")
+      swal("Thành công!", "Đăng nhập thành công!", "success").then(() => {
+        router.push('/');
+      });
     } else {
-      alert("Đăng Nhập Thất Bại");
+      swal("Thất bại!", "Đăng kí thất bại!", "error");
     }
   },
   dangXuat(state) {
     state.isLogin = false;
-    alert("Đăng xuất thành công")
-    router.push('/')
+    swal("Thành công!", "Đăng xuất thành công!", "success").then(() => {
+      router.push('/');
+    });
   },
   addProduct(state, product) {
-    if(state.products.find(p => p.name === product.name)){
+    if (state.products.find(p => p.name === product.name)) {
       alert("Sản phẩm này đã tồn tại")
-    }else{
+    } else {
       state.products.push(product);
       alert('Thêm sản phẩm thành công');
     }
@@ -122,10 +128,25 @@ const mutations = {
       state.products[index].image = product.image;
     }
   },
+  deleteProduct(state, productId) {
+    state.products = state.products.filter(product => product.id !== productId);
+  },
+  updateProduct(state, product) {
+    let index = state.products.findIndex(e => e.id == product.id);
+    if (index !== -1) {
+      state.products[index].id = product.id;
+      state.products[index].name = product.name;
+      state.products[index].description = product.description;
+      state.products[index].price = product.price;
+      state.products[index].inStock = product.inStock;
+      state.products[index].image = product.image;
+      alert("Chỉnh sửa sản phẩm thành công")
+    }
+  },
 
-  
-  
-    
+
+
+
 }
 
 

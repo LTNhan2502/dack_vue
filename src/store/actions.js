@@ -14,6 +14,14 @@ const action = {
         commit('SET_IMAGE', image);
     },
 
+    removeProduct({commit}, productId){
+        commit('deleteProduct', productId)
+    },
+
+    update_Product({commit}, updatedProduct){
+        commit('updateProduct', updatedProduct);
+    },
+
 
 
 }

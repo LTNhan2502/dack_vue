@@ -36,14 +36,14 @@
                                 <td>{{ item.price }}</td>
                                 <td>{{ item.inStock }}</td>
                                 <td>
-                                    <router-link to="/admin/product/update" class="btn btn-primary text-white">
+                                    <router-link :to="`/admin/product/update/${item.id}`" class="btn btn-primary text-white">
                                         Update
                                     </router-link>
                                 </td>
                                 <td>
-                                    <router-link to="/admin/product/delele" class="btn btn-primary text-white">
+                                    <button class="btn btn-primary text-white" @click="del(item.id)">
                                         Delete
-                                    </router-link>
+                                    </button>
                                 </td>
                             </tr>                            
                         </tbody>
@@ -57,6 +57,7 @@
 
 <script>
     import { mapGetters } from 'vuex';
+    import { mapActions } from 'vuex';
     export default{
         name: 'AdminProduct',
         components: {
@@ -64,6 +65,14 @@
         },
         computed: {
             ...mapGetters(['find','getProducts'])
+        },
+        methods: {  
+            ...mapActions(['removeProduct']),
+            del(id){
+                if(confirm("Bạn có muốn xóa sản phẩm này không?")){
+                    this.removeProduct(id);
+                }
+            }
         }
     }
 </script>

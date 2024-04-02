@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import getters from '@/store/getters'
 // import HomeView from '../views/HomeView.vue'
 // import AddCategory from '../views/Category/AddCategory.vue'
 import Category from '../views/Category/Category.vue'
 import AdminHome from '@/components/Admin/AdminHome'
+import UpdateProduct from '@/views/Products/UpdateProduct'
 import AddProduct from '../views/Products/AddProduct.vue'
 import AdminProduct from '@/components/Admin/AdminProduct'
 import HomePage from '../components/HomePage.vue'
@@ -28,7 +30,15 @@ const routes = [
   {
     path: '/admin',
     name: 'AdminHome',
-    component: AdminHome
+    component: AdminHome,
+    beforeEnter: (to, from, next) => {
+      if (getters['auth/isAdmin']) {
+        next();
+      } else {
+        alert("Bạn cần phải đăng nhập để truy cập vào trang admin")
+        next('/dangnhap');
+      }
+    }
   },
   {
     path: '/admin/product',
@@ -44,6 +54,11 @@ const routes = [
     path: '/admin/product/add',
     name: 'AddProduct',
     component: AddProduct
+  },
+  {
+    path: '/admin/product/update/:id',
+    name: 'UpdateProduct',
+    component: UpdateProduct
   },
   {
     path: '/',

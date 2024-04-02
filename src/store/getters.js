@@ -1,4 +1,5 @@
 const getters={
+    isAdmin: state => state.users && state.users.hoten === 'admin',
     getProducts: state => state.products,
     getCarts:state=>state.cart,
     getInStock:state=>id=>state.products.find(e=>e.id==id),

@@ -16,7 +16,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="image">Image</label>
-                                <input type="file" @change="uploadImg">
+                                <input class="form-control" type="file" @change="uploadImg">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="description">Description</label>
@@ -35,7 +35,6 @@
                             <button class="btn btn-primary mt-3" type="button" @click="addNewProduct()">Add
                                 Product</button>
                         </form>
-                        <div class="btn" @click="showID()">Show</div>
                     </div>
                 </div>
             </div>
