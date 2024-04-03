@@ -1,6 +1,6 @@
 <template>
   <div v-if="getPages!=1">
-    <button    type="button" class="btn btn-info" v-for="i in getPages"  :key="i" @click="changePage(i)">{{i}}</button>
+    <button type="button" class="btn btn-info" v-for="i in getPages"  :key="i" @click="changePage(i)">{{i}}</button>
   </div>
 </template>
 

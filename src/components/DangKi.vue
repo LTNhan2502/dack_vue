@@ -16,7 +16,7 @@
               <label for="">Nhập Mật Khẩu</label>
               <input type="password" name="password" v-model="password" id="" class="form-control" placeholder="" aria-describedby="helpId">
             </div>
-            <div class="d-flex justify-content-around">
+            <div class="d-flex justify-content-around mt-3">
                 <button type="button" class="btn btn-danger" @click="dangki()">Đăng Kí</button>
             </div>
                 

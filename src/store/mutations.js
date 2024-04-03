@@ -19,13 +19,10 @@ const mutations = {
       state.products.find(e => e.id == item.id ? e.inStock -= 1 : "")
 
     }
-    // state.cart[checkRepeat].inStock--;
-
   },
   orderByPrice(state, param) {
     console.log(param)
-    state.orderBy = param
-    // state.isFlag=true;
+    state.orderBy = param    
   },
   increase(state, item) {
     state.products.find(e => e.id == item.id ? e.inStock-- : "")
@@ -52,7 +49,6 @@ const mutations = {
       state.cart.splice(index, 1);
 
     }
-    // return state.cart;
   },
   removeAll(state, cart) {
     state.cart = [];
@@ -99,7 +95,7 @@ const mutations = {
         router.push('/');
       });
     } else {
-      swal("Thất bại!", "Đăng kí thất bại!", "error");
+      swal("Thất bại!", "Đăng nhập thất bại!", "error");
     }
   },
   dangXuat(state) {
@@ -123,7 +119,7 @@ const mutations = {
   },
   // mutations.js
   SET_IMAGE(state, product) {
-    const index = state.products.findIndex((p) => p.id === product.id);
+    const index = state.products.findIndex(p => p.id === product.id);
     if (index !== -1) {
       state.products[index].image = product.image;
     }
@@ -143,6 +139,7 @@ const mutations = {
       alert("Chỉnh sửa sản phẩm thành công")
     }
   },
+  
 
 
 

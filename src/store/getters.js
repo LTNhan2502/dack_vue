@@ -1,5 +1,14 @@
 const getters={
-    isAdmin: state => state.users && state.users.hoten === 'admin',
+    isAdmin: state => {
+        // Lấy thông tin người dùng hiện tại từ state
+        const currentUser = state.users.find(user => user.hoten === 'admin');
+
+        // Kiểm tra xem người dùng hiện tại có họ tên là "admin" hay không
+        if (currentUser && currentUser.hoten === 'admin') {
+            return true;
+        }
+        return false;
+    },
     getProducts: state => state.products,
     getCarts:state=>state.cart,
     getInStock:state=>id=>state.products.find(e=>e.id==id),
@@ -20,24 +29,11 @@ const getters={
             return state.products
         }else{
          return state.products.filter(e=>{
-                return e.name.toUpperCase().startsWith(state.searchValue.toUpperCase())
-                // return e.name.toUpperCase()===state.searchValue.toUpperCase()
+                return e.name.toUpperCase().startsWith(state.searchValue.toUpperCase())                
             })
            
         }
-        // if(state.searchValue==""){
-        //     console.log("hihi")
-        //     return state.products
-        // }else{
-        //     // let arr
-        //    return state.products.filter(e=>{
-        //         return e.name.toUpperCase().startsWith(state.searchValue.toUpperCase())
-        //         // return e.name.toUpperCase()===state.searchValue.toUpperCase()
-        //     })
-        //     // console.log(state.searchValue)
-        //     // console.log('find',arr)
-        //     // return arr;
-        // }
+        
     },
   
     paginate(state,getters){
@@ -70,8 +66,6 @@ const getters={
             return getters.paginate
         }else{
          return   getters.paginate
-
-
         }
         
     }

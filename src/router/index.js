@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import getters from '@/store/getters'
+import store from '@/store'
 // import HomeView from '../views/HomeView.vue'
 // import AddCategory from '../views/Category/AddCategory.vue'
 import Category from '../views/Category/Category.vue'
@@ -32,10 +32,12 @@ const routes = [
     name: 'AdminHome',
     component: AdminHome,
     beforeEnter: (to, from, next) => {
-      if (getters['auth/isAdmin']) {
+      if (store.getters.isAdmin) {
         next();
+        // console.log(store.getters.isAdmin);
       } else {
-        alert("Bạn cần phải đăng nhập để truy cập vào trang admin")
+        alert("Bạn cần phải đăng nhập admin để truy cập vào trang này");
+        console.log(store.getters.isAdmin);
         next('/dangnhap');
       }
     }

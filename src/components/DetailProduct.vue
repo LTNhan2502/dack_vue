@@ -90,21 +90,8 @@ export default {
   created() {
     console.log("Createds",document.querySelector('.action'))
     this.id = this.$route.params.id;
-    // let id = this.$route.params.id;
-    // this.id=id;
-    // this.product=this.products.find(e=>e.id==id)
-    // console.log(this.id)
-    // console.log("product",this.product);
-    //  console.log(this.detailProduct(this.id))
   },
-  // mounted(){
-  //   console.log("mounted",document.querySelector('.action'))
-  //   console.log(this.id)
    
-  //   let id = this.$route.params.id;
-  //   this.id=id;
-  // },
-  
   methods:{
     ...mapMutations(['add'])
   }
