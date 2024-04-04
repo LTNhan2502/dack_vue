@@ -119,6 +119,10 @@
           <!--  -->
     <button class="btn btn-danger" @click="removeAll(getCarts)">Xóa Hết</button>
     <!--  -->
+
+    <button @click="goToPayment">Thanh toán</button>
+
+
         </div>
       </div>
     </div>
@@ -126,17 +130,37 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, } from "vuex";
+
+
+
 export default {
   name: "ShoppingCart",
   computed: {
-    ...mapGetters(["getCarts", "getTotalCarts",]),
+    ...mapGetters(["getCarts", "getTotalCarts"]),
   },
-  methods:{
-    ...mapMutations(['remove','removeAll','increase','reduce'])
-  }
+  methods: {
+    goToPayment() {
+      this.$router.push({ 
+    name: 'PaymentForm', 
+    query: { 
+      carts: JSON.stringify(this.getCarts.map(item => ({
+        id: item.id,
+        name: item.name,
+        image: item.image, // Add image
+        quantity: item.quantity, // Add quantity
+        price: item.price
+      })))
+    } 
+  });// Chuyển hướng tới trang thanh toán
+    },
+   
+  },
 };
 </script>
+
+
+
 
 <style>
 .quanlity {
