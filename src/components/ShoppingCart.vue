@@ -120,7 +120,7 @@
     <button class="btn btn-danger" @click="removeAll(getCarts)">Xóa Hết</button>
     <!--  -->
 
-    <button @click="goToPayment">Đặt hàng</button>
+    <button class="btn btn-primary" @click="goToPayment">Đặt hàng</button>
 
 
         </div>
@@ -153,7 +153,8 @@ export default {
         price: item.price
       })))
     } 
-  });// Chuyển hướng tới trang thanh toán
+  });
+  // Chuyển hướng tới trang thanh toán
     },
     
    

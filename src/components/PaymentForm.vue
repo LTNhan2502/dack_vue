@@ -5,62 +5,61 @@
         <div class="form-group">
           <label for="name" class="label">Tên:</label>
           <input type="text" id="name" v-model="formData.name" class="form-control" required>
-          <span v-if="!isValidName" class="error-message">Tên phải chứa ít nhất 2 ký tự </span>
+          <span v-if="!isValidName" class="error-message">Vui lòng nhập tên</span>
         </div>
         <div class="form-group">
           <label for="address" class="label">Địa chỉ:</label>
           <input type="text" id="address" v-model="formData.address" class="form-control" required>
-          <span v-if="!isValidAddress" class="error-message">Địa chỉ không được để trống</span>
+          <span v-if="!isValidAddress" class="error-message">Vui lòng nhập địa chỉ</span>
         </div>
         <div class="form-group">
-          <label for="creditCard" class="label">Số Điện Thoại</label>
-          <input type="text" id="creditCard" v-model="formData.phone" class="form-control" required>
-          <span v-if="!isValidPhone" class="error-message">Số điện thoại không đúng</span>
+          <label for="phone" class="label">Số Điện Thoại:</label>
+          <input type="text" id="phone" v-model="formData.phone" class="form-control" required>
+          <span v-if="!isValidPhone" class="error-message">Vui lòng nhập số điện thoại</span>
         </div>
         <div class="form-group">
-          <label for="expiryDate" class="label">Email</label>
-          <input type="text" id="expiryDate" v-model="formData.email" class="form-control" required>
-          <span v-if="!isValidEmail" class="error-message">Email không được để trống và phải đúng định dạng</span>
+          <label for="email" class="label">Email:</label>
+          <input type="email" id="email" v-model="formData.email" class="form-control" required>
+          <span v-if="!isValidEmail" class="error-message">Vui lòng nhập email</span>
         </div>
         <div class="form-group">
-                <label for="paymentMethod" class="form-label">Phương thức thanh toán:</label>
-                <select v-model="formData.paymentMethod" class="form-control">
-                  <option value="Tiền mặt">Thanh toán khi nhận hàng</option>
-                  <option value="momo">Ví MoMo</option>
-                  <option value="paypal">PayPal</option>
-                </select>
-              </div>
+          <label for="paymentMethod" class="label">Phương thức thanh toán:</label>
+          <select v-model="formData.paymentMethod" class="form-control">
+            <option value="cash">Thanh toán khi nhận hàng</option>
+            <option value="momo">Ví MoMo</option>
+            <option value="paypal">PayPal</option>
+          </select>
+        </div>
         <button type="submit" class="btn btn-primary btn-block">Xác nhận đặt hàng</button>
       </form>
       <InvoicePayment v-if="showInvoice" :formData="formData" :carts="carts" />
       <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Into Money</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in carts" :key="item.id">
-              <td>
-                <img :src="item.image" style="width: 50px; height: 50px;" />
-                {{ item.name }}
-              </td>
-              <td>{{ item.quantity }}</td>
-              <td>{{ item.price }}$</td>
-              <td>{{ item.quantity * item.price }}$</td>
-            </tr>
-          </tbody>
-        </table>
-      
+        <thead>
+          <tr>
+            <th scope="col">Sản phẩm</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in carts" :key="item.id">
+            <td>
+              <img :src="item.image" class="product-image" alt="Product Image" />
+              {{ item.name }}
+            </td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}$</td>
+            <td>{{ item.quantity * item.price }}$</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </template>
   
   <script>
   import InvoicePayment from './InvoicePayment.vue';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapMutations } from 'vuex';
   
   export default {
     name: 'PaymentForm',
@@ -74,21 +73,19 @@
           address: '',
           phone: '',
           email: '',
-          
-          
+          paymentMethod: 'Tiền mặt'
         },
         showInvoice: false
       };
     },
     computed: {
-        ...mapGetters(["getCarts"]),
-        carts() {
-      return JSON.parse(this.$route.query.carts || '[]'); // Chuyển chuỗi JSON thành mảng carts
-    },
-
+      ...mapGetters(["getCarts"]),
+      carts() {
+        return JSON.parse(this.$route.query.carts || '[]');
+      },
       isValidName() {
         const name = this.formData.name.trim();
-        return name.length >= 2 && /^[a-zA-Z]+$/.test(name);
+        return name.length >= 2 && /^[a-zA-Z\s]*$/.test(name);
       },
       isValidPhone() {
         const phone = this.formData.phone.trim();
@@ -103,27 +100,29 @@
       }
     },
     methods: {
-        submitForm() {
-            
-  if (this.isValidAddress && this.isValidEmail&& this.isValidName && this.isValidPhone) {
-    console.log('Giá trị của carts:', this.carts);
-    this.$router.push({ 
-      name: 'InvoicePayment', 
-      query: { 
-        ...this.formData, 
-        ...this.$route.query, // Thêm thông tin từ URL hiện tại
-        carts: JSON.stringify(this.carts) 
-      } 
-    });
-    this.showInvoice = true;
-  } else {
-    // Hiển thị thông báo lỗi hoặc xử lý tùy ý
-    console.log('Vui lòng điền đầy đủ thông tin và đúng định dạng');
-  }
-}
-
-
-    }
+      ...mapMutations(['removeAll']),
+      submitForm() {
+        if (this.isValidAddress && this.isValidEmail && this.isValidName && this.isValidPhone) {
+          console.log('Giá trị của carts:', this.carts);
+          this.$router.push({
+            name: 'InvoicePayment',
+            query: {
+              ...this.formData,
+              ...this.$route.query,
+              carts: JSON.stringify(this.carts),
+            },
+          });
+          this.showInvoice = true;
+          if (Array.isArray(this.carts)) {
+            this.removeAll();
+          } else {
+            console.log('Mảng carts không tồn tại hoặc không hợp lệ.');
+          }
+        } else {
+          console.log('Vui lòng điền đầy đủ thông tin và đúng định dạng');
+        }
+      },
+    },
   };
   </script>
   
@@ -132,72 +131,73 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
   
   h2 {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #f76c6c; /* Màu sắc theo thiết kế */
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
+    color: #333;
   }
   
   .label {
     font-weight: bold;
-    margin-bottom: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
   }
   
   .form-control {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ced4da;
+    border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  
-  .btn {
-    padding: 10px;
-    font-size: 18px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
   }
   
   .btn-primary {
-    color: #fff;
-    background-color: #f76c6c; /* Màu sắc theo thiết kế */
-    border: 1px solid #f76c6c; /* Màu sắc theo thiết kế */
-  }
-  
-  .btn-primary:hover {
-    background-color: #d44242; /* Màu sắc theo thiết kế */
-    border-color: #d44242; /* Màu sắc theo thiết kế */
+    background-color: #1ff474;
+    border: none;
+    padding: 12px 0;
   }
   
   .btn-block {
     display: block;
-    width: 100%;
+    width: calc(100% - 20px);
+    margin: 20px 0;
   }
   
   .error-message {
     color: red;
   }
   
-  .invoice {
-    margin-top: 40px;
-  }
-  
-  .invoice h2 {
-    color: #f76c6c; /* Màu sắc theo thiết kế */
-  }
-  
   .product-image {
     width: 50px;
     height: 50px;
     margin-right: 10px;
+    border-radius: 50%;
   }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
   </style>
   

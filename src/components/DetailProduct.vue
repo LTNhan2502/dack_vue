@@ -59,7 +59,7 @@
                 Add to cart
               </button>
               <button type="button" class="add-to-cart btn btn-danger">
-                By now
+                Buy now
               </button>
               <button class="like btn btn-default" type="button">
                 <span class="fa fa-heart"></span>
