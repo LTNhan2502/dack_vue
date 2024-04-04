@@ -12,6 +12,8 @@ import ShoppingCart from '../components/ShoppingCart.vue'
 import DetailProduct from '../components/DetailProduct.vue'
 import DangNhap from '../components/DangNhap.vue'
 import DangKi from '../components/DangKi.vue'
+import PaymentForm from '../components/PaymentForm.vue';
+import InvoicePayment from '../components/InvoicePayment.vue';
 
 const routes = [
   // {
@@ -19,6 +21,17 @@ const routes = [
     // name: 'home',
     // component: HomeView
   // },
+  {
+
+    path: '/invoice',
+    name: 'InvoicePayment',
+    component: InvoicePayment
+  },
+  {
+    path: '/payment',
+    name: 'PaymentForm',
+    component: PaymentForm
+  },
   {
     path: '/about',
     name: 'about',
