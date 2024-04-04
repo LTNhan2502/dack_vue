@@ -120,7 +120,7 @@
     <button class="btn btn-danger" @click="removeAll(getCarts)">Xóa Hết</button>
     <!--  -->
 
-    <button @click="goToPayment">Thanh toán</button>
+    <button @click="goToPayment">Đặt hàng</button>
 
 
         </div>
@@ -130,7 +130,7 @@
 </template>
 
 <script>
-import { mapGetters, } from "vuex";
+import { mapGetters, mapMutations} from "vuex";
 
 
 
@@ -140,6 +140,7 @@ export default {
     ...mapGetters(["getCarts", "getTotalCarts"]),
   },
   methods: {
+    ...mapMutations(['remove','removeAll','increase','reduce']),
     goToPayment() {
       this.$router.push({ 
     name: 'PaymentForm', 
@@ -154,6 +155,7 @@ export default {
     } 
   });// Chuyển hướng tới trang thanh toán
     },
+    
    
   },
 };

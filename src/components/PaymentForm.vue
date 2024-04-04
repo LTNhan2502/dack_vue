@@ -22,9 +22,39 @@
           <input type="text" id="expiryDate" v-model="formData.email" class="form-control" required>
           <span v-if="!isValidEmail" class="error-message">Email không được để trống và phải đúng định dạng</span>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Xác nhận thanh toán</button>
+        <div class="form-group">
+                <label for="paymentMethod" class="form-label">Phương thức thanh toán:</label>
+                <select v-model="formData.paymentMethod" class="form-control">
+                  <option value="Tiền mặt">Thanh toán khi nhận hàng</option>
+                  <option value="momo">Ví MoMo</option>
+                  <option value="paypal">PayPal</option>
+                </select>
+              </div>
+        <button type="submit" class="btn btn-primary btn-block">Xác nhận đặt hàng</button>
       </form>
       <InvoicePayment v-if="showInvoice" :formData="formData" :carts="carts" />
+      <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Into Money</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in carts" :key="item.id">
+              <td>
+                <img :src="item.image" style="width: 50px; height: 50px;" />
+                {{ item.name }}
+              </td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.price }}$</td>
+              <td>{{ item.quantity * item.price }}$</td>
+            </tr>
+          </tbody>
+        </table>
+      
     </div>
   </template>
   
@@ -44,6 +74,7 @@
           address: '',
           phone: '',
           email: '',
+          
           
         },
         showInvoice: false
@@ -98,7 +129,7 @@
   
   <style scoped>
   .payment-form {
-    max-width: 400px;
+    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
   }
@@ -106,6 +137,7 @@
   h2 {
     font-size: 24px;
     margin-bottom: 20px;
+    color: #f76c6c; /* Màu sắc theo thiết kế */
   }
   
   .form-group {
@@ -113,7 +145,6 @@
   }
   
   .label {
-    display: block;
     font-weight: bold;
     margin-bottom: 5px;
   }
@@ -137,11 +168,13 @@
   
   .btn-primary {
     color: #fff;
-    background-color: #007bff;
+    background-color: #f76c6c; /* Màu sắc theo thiết kế */
+    border: 1px solid #f76c6c; /* Màu sắc theo thiết kế */
   }
   
   .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #d44242; /* Màu sắc theo thiết kế */
+    border-color: #d44242; /* Màu sắc theo thiết kế */
   }
   
   .btn-block {
@@ -151,6 +184,20 @@
   
   .error-message {
     color: red;
+  }
+  
+  .invoice {
+    margin-top: 40px;
+  }
+  
+  .invoice h2 {
+    color: #f76c6c; /* Màu sắc theo thiết kế */
+  }
+  
+  .product-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
   }
   </style>
   
