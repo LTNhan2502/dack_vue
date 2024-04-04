@@ -5,6 +5,8 @@ import store from '@/store'
 import Category from '../views/Category/Category.vue'
 import AdminHome from '@/components/Admin/AdminHome'
 import UpdateProduct from '@/views/Products/UpdateProduct'
+import DangNhapAdmin from '@/components/Admin/DangNhap.vue'
+import DangKiAdmin from '@/components/Admin/DangKi.vue'
 import AddProduct from '../views/Products/AddProduct.vue'
 import AdminProduct from '@/components/Admin/AdminProduct'
 import HomePage from '../components/HomePage.vue'
@@ -32,15 +34,25 @@ const routes = [
     name: 'AdminHome',
     component: AdminHome,
     beforeEnter: (to, from, next) => {
-      if (store.getters.isAdmin) {
+      if (store.state.isLoginadmin) {
         next();
         // console.log(store.getters.isAdmin);
       } else {
         alert("Bạn cần phải đăng nhập admin để truy cập vào trang này");
-        console.log(store.getters.isAdmin);
-        next('/dangnhap');
+        console.log(store.state.isLoginadmin);
+        next('/dangnhapAdmin');
       }
     }
+  },
+  {
+    path: '/dangnhapAdmin',
+    name: 'AdminDangnhap',
+    component: DangNhapAdmin
+  },
+  {
+    path: '/dangkiadmin',
+    name: 'AdminDangki',
+    component: DangKiAdmin
   },
   {
     path: '/admin/product',

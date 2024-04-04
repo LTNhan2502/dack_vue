@@ -59,10 +59,10 @@ const mutations = {
   },
   dangKi(state, info) {
     if (info.email !== "" && info.password !== "" && info.hoten !== "") {
-      const users = JSON.parse(localStorage.getItem('Users')) || [];
+      const users = JSON.parse(localStorage.getItem('users')) || [];
       state.users = users;
       state.users.push(info);
-      localStorage.setItem('Users', JSON.stringify(state.users));
+      localStorage.setItem('users', JSON.stringify(state.users));
       swal("Thành công!", "Đăng kí thành công!", "success").then(() => {
         router.push('/dangnhap');
       });
@@ -117,6 +117,47 @@ const mutations = {
       console.log(product.id);
     });
   },
+
+//admin 
+dangKiadmin(state, info) {
+  if (info.email !== "" && info.password !== "" && info.hoten !== "") {
+    const admin = JSON.parse(localStorage.getItem('admin')) || [];
+    state.admin = admin;
+    state.admin.push(info);
+    localStorage.setItem('admin', JSON.stringify(state.admin));
+    swal("Thành công!", "Đăng kí thành công!", "success").then(() => {
+      router.push('/dangnhap');
+    });
+  } else {
+    swal("Thất bại!", "Đăng kí thất bại!", "error");
+  }
+
+
+
+},
+
+dangNhapadmin(state, info) {
+  console.log(info)
+  let admin = JSON.parse(localStorage.getItem('admin'));
+  let kq = admin.find(e => e.email === info.email && e.password === info.password)
+  console.log(kq)
+  if (kq) {
+    state.isLoginadmin = true
+    state.name = kq.hoten;
+    swal("Thành công!", "Đăng nhập thành công!", "success").then(() => {
+      router.push('/admin');
+    });
+  } else {
+    swal("Thất bại!", "Đăng nhập thất bại!", "error");
+  }
+},
+dangXuatadmin(state) {
+  state.isLoginadmin = false;
+  // console.log(state.isLoginadmin);
+  swal("Thành công!", "Đăng xuất admin thành công!", "success").then(() => {
+    router.push('/');
+  });
+},
   // mutations.js
   SET_IMAGE(state, product) {
     const index = state.products.findIndex(p => p.id === product.id);

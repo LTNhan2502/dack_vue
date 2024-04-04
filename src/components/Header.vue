@@ -26,11 +26,6 @@
                                 >About
                             </router-link>
                         </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link text-white" to="/admin"
-                                >Admin
-                            </router-link>
-                        </li>
                         <form class="form-inline my-2 my-lg-0">
                             <input
                                 class="form-control mr-sm-2"
@@ -54,6 +49,14 @@
                         <li class="text-white nav-item btn btn-danger" @click="dangXuat">Đăng Xuất</li> 
                         <li class="text-white nav-item">Xin Chào {{ name }}</li>
                     </ul>
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="margin-right: auto;" v-if="isLoginadmin!=true">
+                        <router-link to="/admin"> <li class="nav-item text-white">Admin</li></router-link>
+                    </ul>
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="margin-right: auto;" v-if="isLoginadmin!=false">
+                        <li class="text-white nav-item btn btn-danger" @click="dangXuatadmin">Đăng Xuất admin</li> 
+                        <li class="text-white nav-item">Xin Chào {{ name }}</li>
+                    </ul>
+
                     <div class="cart">
                         <router-link to="/shopping-cart">
                             <svg
@@ -89,11 +92,11 @@ export default {
     },
     computed:{
         ...mapGetters(['getCountCarts','find']),
-        ...mapState(['isLogin','name'])
+        ...mapState(['isLogin','name', 'isLoginadmin'])
        
     },
     methods:{
-        ...mapMutations(['search','dangXuat'])
+        ...mapMutations(['search','dangXuat','dangXuatadmin'])
     }
 
 }
