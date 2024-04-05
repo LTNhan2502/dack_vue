@@ -85,7 +85,7 @@ const mutations = {
 
   dangNhap(state, info) {
     console.log(info)
-    let users = JSON.parse(localStorage.getItem('Users'));
+    let users = JSON.parse(localStorage.getItem('users'));
     let kq = users.find(e => e.email === info.email && e.password === info.password)
     console.log(kq)
     if (kq) {

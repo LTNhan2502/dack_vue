@@ -36,7 +36,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['dangKi']),
+    ...mapMutations(['handleDangKi']),
     dangki() {
       let dk = {
         hoten: this.hoten,

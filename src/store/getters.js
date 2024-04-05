@@ -1,7 +1,7 @@
 const getters={
     isAdmin: state => {
         // Lấy thông tin người dùng hiện tại từ state
-        const currentUser = state.users.find(user => user.hoten === 'admin');
+        const currentUser = state.admin.find(user => user.hoten === 'admin');
 
         // Kiểm tra xem người dùng hiện tại có họ tên là "admin" hay không
         if (currentUser && currentUser.hoten === 'admin') {
