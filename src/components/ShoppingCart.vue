@@ -130,9 +130,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations} from "vuex";
-
-
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "ShoppingCart",
@@ -140,27 +138,34 @@ export default {
     ...mapGetters(["getCarts", "getTotalCarts"]),
   },
   methods: {
-    ...mapMutations(['remove','removeAll','increase','reduce']),
+    ...mapMutations(['remove', 'removeAll', 'increase', 'reduce']),
+    
     goToPayment() {
       this.$router.push({ 
-    name: 'PaymentForm', 
-    query: { 
-      carts: JSON.stringify(this.getCarts.map(item => ({
-        id: item.id,
-        name: item.name,
-        image: item.image, // Add image
-        quantity: item.quantity, // Add quantity
-        price: item.price
-      })))
-    } 
-  });
-  // Chuyển hướng tới trang thanh toán
+        name: 'PaymentForm', 
+        query: { 
+          carts: JSON.stringify(this.getCarts.map(item => ({
+            id: item.id,
+            name: item.name,
+            image: item.image,
+            quantity: item.quantity,
+            price: item.price
+          })))
+        } 
+      });
+      // Gọi phương thức để xóa tất cả các mặt hàng khỏi giỏ hàng
+      this.removeAllFromCart(this.getCarts); // Truyền tham số vào đây
     },
     
-   
+    // Phương thức để xóa tất cả các mặt hàng khỏi giỏ hàng
+    removeAllFromCart(carts) { // Nhận tham số ở đây
+      this.removeAll(carts); // Truyền tham số vào removeAll
+    }
   },
 };
 </script>
+
+
 
 
 

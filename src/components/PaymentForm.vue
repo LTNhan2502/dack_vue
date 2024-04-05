@@ -59,7 +59,7 @@
   
   <script>
   import InvoicePayment from './InvoicePayment.vue';
-  import { mapGetters, mapMutations } from 'vuex';
+  import { mapGetters } from 'vuex';
   
   export default {
     name: 'PaymentForm',
@@ -100,7 +100,7 @@
       }
     },
     methods: {
-      ...mapMutations(['removeAll']),
+     
       submitForm() {
         if (this.isValidAddress && this.isValidEmail && this.isValidName && this.isValidPhone) {
           console.log('Giá trị của carts:', this.carts);
@@ -113,11 +113,7 @@
             },
           });
           this.showInvoice = true;
-          if (Array.isArray(this.carts)) {
-            this.removeAll();
-          } else {
-            console.log('Mảng carts không tồn tại hoặc không hợp lệ.');
-          }
+          
         } else {
           console.log('Vui lòng điền đầy đủ thông tin và đúng định dạng');
         }
