@@ -91,7 +91,7 @@
                   </div>
                 </td>
                 <td class="col-sm-1 col-md-1 text-center">
-                  {{ item.price}}$
+                  {{ item.price.toFixed(3)}}VND
                 </td>
                 <td class="col-sm-1 col-md-1 text-center">
                   <strong> {{ item.price*item.quantity }}$ </strong>
@@ -110,7 +110,7 @@
                 <td><h3>Total</h3></td>
                 <td class="text-right">
                   <h3>
-                    <strong>{{ getTotalCarts.toFixed(2)}}$</strong>
+                    <strong>{{ getTotalCarts.toFixed(3)}}$</strong>
                   </h3>
                 </td>
               </tr>
@@ -154,13 +154,13 @@ export default {
         } 
       });
       // Gọi phương thức để xóa tất cả các mặt hàng khỏi giỏ hàng
-      this.removeAllFromCart(this.getCarts); // Truyền tham số vào đây
+      // this.removeAllFromCart(this.getCarts); // Truyền tham số vào đây
     },
     
     // Phương thức để xóa tất cả các mặt hàng khỏi giỏ hàng
-    removeAllFromCart(carts) { // Nhận tham số ở đây
-      this.removeAll(carts); // Truyền tham số vào removeAll
-    }
+    // removeAllFromCart(carts) { // Nhận tham số ở đây
+    //   this.removeAll(carts); // Truyền tham số vào removeAll
+    // }
   },
 };
 </script>

@@ -181,6 +181,14 @@ dangXuatadmin(state) {
       alert("Chỉnh sửa sản phẩm thành công")
     }
   },
+
+  removeInStock(state, cart) {
+    state.cart = [];
+    console.log(cart)
+    cart.forEach(e => {
+      state.products.find(product => product.id == e.id ? product.inStock -= e.quantity : "")
+    });
+  },
   
   
 

@@ -28,8 +28,8 @@
             <h4>InStock:{{detailProduct(id).inStock}}</h4>
             <p class="product-description"></p>
             <h4 class="price">
-              current price:{{detailProduct(id).price }}
-              <span>$</span>
+              current price:{{detailProduct(id).price.toFixed(3) }}
+              <span>VND</span>
             </h4>
             <p class="vote">
               <strong>91%</strong> of buyers enjoyed this product!
@@ -58,7 +58,7 @@
               <button :disabled="detailProduct(id).inStock==0" class="add-to-cart btn btn-success" type="button" @click="add(detailProduct(id))">
                 Add to cart
               </button>
-              <button type="button" class="add-to-cart btn btn-danger">
+              <button type="button" class="add-to-cart btn btn-danger" @click="goToPayment">
                 Buy now
               </button>
               <button class="like btn btn-default" type="button">
@@ -93,7 +93,21 @@ export default {
   },
    
   methods:{
-    ...mapMutations(['add'])
+    ...mapMutations(['add']),
+    goToPayment() {
+      this.$router.push({ 
+        name: 'PaymentForm', 
+        query: { 
+          carts: JSON.stringify(this.getCarts.map(item => ({
+            id: item.id,
+            name: item.name,
+            image: item.image,
+            quantity: item.quantity,
+            price: item.price
+          })))
+        } 
+      });
+    },
   }
 };
 </script>

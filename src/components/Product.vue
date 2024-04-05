@@ -6,7 +6,7 @@
           <img :src="product.image" class="card-img-top" alt="Product Image" />
           <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.price.toFixed(2) }}$</p>
+            <p class="card-text">{{ product.price.toFixed(3) }}VND</p>
             <router-link :to="`/detail-product/${product.id}`" class="stretched-link"></router-link>
           </div>
         </div>

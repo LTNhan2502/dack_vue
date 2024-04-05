@@ -44,7 +44,8 @@ export default {
       this.password=""
       this.$store.commit('dangNhapadmin',info)
     }
-  }
+  },
+  
 }
 </script>
 

@@ -30,7 +30,7 @@
             <option value="paypal">PayPal</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Xác nhận đặt hàng</button>
+        <button type="submit" class="btn btn-primary btn-block" @click="removeInStock(getCarts)">Xác nhận đặt hàng</button>
       </form>
       <InvoicePayment v-if="showInvoice" :formData="formData" :carts="carts" />
       <table class="table table-hover">
@@ -49,8 +49,8 @@
               {{ item.name }}
             </td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.price }}$</td>
-            <td>{{ item.quantity * item.price }}$</td>
+            <td>{{ item.price.toFixed(3) }}VND</td>
+            <td>{{ (item.quantity * item.price).toFixed(3) }}VND</td>
           </tr>
         </tbody>
       </table>
@@ -59,7 +59,7 @@
   
   <script>
   import InvoicePayment from './InvoicePayment.vue';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapMutations } from 'vuex';
   
   export default {
     name: 'PaymentForm',
@@ -79,7 +79,7 @@
       };
     },
     computed: {
-      ...mapGetters(["getCarts"]),
+      ...mapGetters(["getCarts","getInStock"]),
       carts() {
         return JSON.parse(this.$route.query.carts || '[]');
       },
@@ -100,7 +100,7 @@
       }
     },
     methods: {
-     
+      ...mapMutations(['removeInStock']),
       submitForm() {
         if (this.isValidAddress && this.isValidEmail && this.isValidName && this.isValidPhone) {
           console.log('Giá trị của carts:', this.carts);
@@ -118,6 +118,10 @@
           console.log('Vui lòng điền đầy đủ thông tin và đúng định dạng');
         }
       },
+
+      // confirmPay(){
+      //   this.removeInStock;
+      // }
     },
   };
   </script>
