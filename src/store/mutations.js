@@ -119,6 +119,7 @@ const mutations = {
   },
 
 //admin 
+//admin 
 dangKiadmin(state, info) {
   if (info.email !== "" && info.password !== "" && info.hoten !== "") {
     const admin = JSON.parse(localStorage.getItem('admin')) || [];
